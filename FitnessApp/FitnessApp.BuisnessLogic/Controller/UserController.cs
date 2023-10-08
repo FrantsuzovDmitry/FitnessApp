@@ -7,21 +7,39 @@ namespace FitnessApp.BuisnessLogic.Controller
 {
 	public class UserController
 	{
-		public User User { get; }
+		public List<User> Users { get; }
+		public User CurrentUser { get; }
+		public bool IsNewUser { get; } = false;		// flag by default is false
 
-		public UserController(User user)
+		private const string UsersDataFileInfo = "users.json";
+
+		public UserController(string username)
 		{
-			if (user == null)
-				throw new ArgumentNullException("User is null", nameof(user));
-			else
-				User = user;
+			if (username.IsNullOrWhiteSpace())
+				throw new ArgumentNullException("User name is empty!", nameof(username));
+			Users = GetUsersData();
+
+			CurrentUser = Users.SingleOrDefault(u => u.Name == username);
+
+			if (CurrentUser == null)
+			{
+				IsNewUser = true;
+				CurrentUser = new User(username);
+				Users.Add(CurrentUser);
+				Save();
+			}
 		}
 
-		public UserController(string username, string genderName, DateTime birthDate, double weight, int height)
+		//public UserController(string username, string genderName, DateTime birthDate, double weight, int height)
+		//{
+		//	var gender = new Gender (genderName);
+		//	var user = new User (username, gender, birthDate, weight, height);
+		//	Users = user;
+		//}
+
+		public void SetUserData()
 		{
-			var gender = new Gender (genderName);
-			var user = new User (username, gender, birthDate, weight, height);
-			User = user;
+
 		}
 
 		/// <summary>
@@ -31,9 +49,9 @@ namespace FitnessApp.BuisnessLogic.Controller
 		{
 			try
 			{
-				var serializedObject = JsonConvert.SerializeObject(User);
+				var serializedObject = JsonConvert.SerializeObject(Users);
 
-				using (var sw = new StreamWriter("users.json"))
+				using (var sw = new StreamWriter(UsersDataFileInfo))
 				{
 					sw.Write(serializedObject);
 				}
@@ -47,20 +65,31 @@ namespace FitnessApp.BuisnessLogic.Controller
 		}
 
 		/// <summary>
-		/// Load data about user from file
+		/// Load data about users from file
 		/// </summary>
-		public UserController()
+		private List<User> GetUsersData()
 		{
 			try
 			{
-				string deserializedObject;
+				string serializedUsers;
+				List<User> users;
 
-				using (var sr = new StreamReader("users.json"))
+				if (File.Exists(UsersDataFileInfo))
 				{
-					deserializedObject = sr.ReadToEnd();
-				}
+					using (var sr = new StreamReader(UsersDataFileInfo))
+					{
+						serializedUsers = sr.ReadToEnd();
+					}
 
-				User = JsonConvert.DeserializeObject<User>(deserializedObject);
+					users = JsonConvert.DeserializeObject<List<User>>(serializedUsers)
+							   ?? new List<User>();
+
+					return users;
+				}
+				else
+				{
+					return new List<User>();
+				}
 			}
 			catch
 			{

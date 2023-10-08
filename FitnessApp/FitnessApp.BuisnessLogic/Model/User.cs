@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace FitnessApp.BuisnessLogic.Model
 {
-	[Serializable]
 	public class User
 	{
 		public string Name { get; }
@@ -13,6 +13,15 @@ namespace FitnessApp.BuisnessLogic.Model
 		/// Height in cm (centimeters)
 		/// </summary>
 		public int Height { get; set; }
+		public int Age { get { return (int)(DateTime.Now - BirthDate).TotalDays / 365; }}
+
+		[JsonConstructor]
+		public User(string name)
+		{
+			if (name.IsNullOrWhiteSpace())
+				throw new ArgumentNullException("Имя не может быть пустым.", nameof(name));
+			Name = name;
+		}
 
 		public User(string name,
 					Gender gender, 
@@ -38,6 +47,11 @@ namespace FitnessApp.BuisnessLogic.Model
 			BirthDate = birthDate;
 			Weight = weight;
 			Height = height;
+		}
+
+		public override string ToString()
+		{
+			return Name + " " + Age + " y.o.";
 		}
 	}
 }

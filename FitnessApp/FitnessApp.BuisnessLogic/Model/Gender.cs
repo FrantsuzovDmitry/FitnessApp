@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace FitnessApp.BuisnessLogic.Model
 {
-	[Serializable]
 	/// <summary>
 	/// Gender (sex) of human
 	/// </summary>
