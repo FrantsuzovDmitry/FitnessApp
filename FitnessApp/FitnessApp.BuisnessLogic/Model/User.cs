@@ -6,13 +6,19 @@ namespace FitnessApp.BuisnessLogic.Model
 	public class User
 	{
 		public string Name { get; }
-		public Gender Gender { get; }
-		public DateTime BirthDate { get; }
+
+		public Gender Gender { get; set; }
+
+		public DateTime BirthDate { get; set; }
+
 		public double Weight { get; set; }
+
 		/// <summary>
 		/// Height in cm (centimeters)
 		/// </summary>
 		public int Height { get; set; }
+
+		// Calculating field
 		public int Age { get { return (int)(DateTime.Now - BirthDate).TotalDays / 365; }}
 
 		[JsonConstructor]

@@ -30,20 +30,17 @@ namespace FitnessApp.BuisnessLogic.Controller
 			}
 		}
 
-		//public UserController(string username, string genderName, DateTime birthDate, double weight, int height)
-		//{
-		//	var gender = new Gender (genderName);
-		//	var user = new User (username, gender, birthDate, weight, height);
-		//	Users = user;
-		//}
-
-		public void SetUserData()
+		public void SetNewUserData(char genderName, DateTime birthDate, double weight, int height)
 		{
-
+			CurrentUser.Gender = new Gender(genderName.ToString());
+			CurrentUser.BirthDate = birthDate;
+			CurrentUser.Weight = weight;
+			CurrentUser.Height = height;
+			Save();
 		}
 
 		/// <summary>
-		/// Save data about user
+		/// Save data about all users (rewrite in file)
 		/// </summary>
 		public bool Save()
 		{
@@ -51,6 +48,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 			{
 				var serializedObject = JsonConvert.SerializeObject(Users);
 
+				// Rewrite in file
 				using (var sw = new StreamWriter(UsersDataFileInfo))
 				{
 					sw.Write(serializedObject);

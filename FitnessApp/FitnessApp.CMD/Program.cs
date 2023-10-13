@@ -20,27 +20,27 @@ namespace FitnessApp.CMD
 									input => input.Length >= 2);
 
 			var userController = new UserController(name);
-			if (!userController.IsNewUser)
-			{
-				return;
-			}
 
-			// else:
-			#region Input user's data
-			char gender = GetData<char>("Input your gender(M or W):", "Incorrect gender",
-										input => input.Length == 1 &&
-										(input[0] == 'M' || input[0] == 'W' ||
-										input[0] == 'm' || input[0] == 'w'));
-			DateTime birthDate = GetData<DateTime>("Input your birth date (dd/MM/yyyy):",
-													"Incorrect birthdate",
-													input => DateTime.TryParse(input, out _));
-			double weight = GetData<double>("Input your weight:", "Incorrect weight",
-											input => double.TryParse(input, out double result)
-											&& result >= 20);
-			int height = GetData<int>("Input your height:", "Incorrect height",
-										input => Int32.TryParse(input, out int result)
-										&& result >= 70 && result <= 280);
-			#endregion
+			if (userController.IsNewUser)
+			{
+				#region Input user's data
+				char gender = GetData<char>("Input your gender(M or W):", "Incorrect gender",
+											input => input.Length == 1 &&
+											(input[0] == 'M' || input[0] == 'W' ||
+											input[0] == 'm' || input[0] == 'w'));
+				DateTime birthDate = GetData<DateTime>("Input your birth date (dd.MM.yyyy):",
+														"Incorrect birthdate",
+														input => DateTime.TryParse(input, out _));
+				double weight = GetData<double>("Input your weight:", "Incorrect weight",
+												input => double.TryParse(input, out double result)
+												&& result >= 20);
+				int height = GetData<int>("Input your height:", "Incorrect height",
+											input => Int32.TryParse(input, out int result)
+											&& result >= 70 && result <= 280);
+				#endregion
+
+				userController.SetNewUserData(gender, birthDate, weight, height);
+			}
 
 			Console.WriteLine(userController.CurrentUser);
 		}
