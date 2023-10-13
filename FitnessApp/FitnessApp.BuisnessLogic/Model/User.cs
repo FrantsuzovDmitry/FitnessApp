@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FitnessApp.BuisnessLogic.Controller;
+using Newtonsoft.Json;
 using System;
 
 namespace FitnessApp.BuisnessLogic.Model
@@ -59,5 +60,22 @@ namespace FitnessApp.BuisnessLogic.Model
 		{
 			return Name + " " + Age + " y.o.";
 		}
+		public override bool Equals(object? obj)
+		{
+			if (obj == null || GetType() != obj.GetType())
+			{
+				return false;
+			}
+			else
+			{
+				User user = (User)obj;
+				return this.Name == user.Name &&
+					this.Gender.Name == user.Gender.Name &&
+					this.BirthDate == user.BirthDate &&
+					this.Weight == user.Weight &&
+					this.Height == user.Height;
+			}
+		}
+
 	}
 }

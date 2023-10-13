@@ -5,9 +5,11 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B50482FD-F401-4F9F-9970-6F8233385688}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessApp.BuisnessLogic", "FitnessApp.BuisnessLogic\FitnessApp.BuisnessLogic.csproj", "{34047BF1-995F-4EDD-BF77-ACDCB4DE520F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessApp.BuisnessLogic", "FitnessApp.BuisnessLogic\FitnessApp.BuisnessLogic.csproj", "{34047BF1-995F-4EDD-BF77-ACDCB4DE520F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessApp.CMD", "FitnessApp.CMD\FitnessApp.CMD.csproj", "{1FC9E177-5C74-44D7-A44E-26D0D94C630F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessApp.CMD", "FitnessApp.CMD\FitnessApp.CMD.csproj", "{1FC9E177-5C74-44D7-A44E-26D0D94C630F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessApp.BuisnessLogicTests", "FitnessApp.BuisnessLogicTests\FitnessApp.BuisnessLogicTests.csproj", "{7962F792-D423-4BCA-8E0D-C17E977A7AA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{1FC9E177-5C74-44D7-A44E-26D0D94C630F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FC9E177-5C74-44D7-A44E-26D0D94C630F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FC9E177-5C74-44D7-A44E-26D0D94C630F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7962F792-D423-4BCA-8E0D-C17E977A7AA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7962F792-D423-4BCA-8E0D-C17E977A7AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7962F792-D423-4BCA-8E0D-C17E977A7AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7962F792-D423-4BCA-8E0D-C17E977A7AA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
