@@ -16,10 +16,11 @@ namespace FitnessApp.BuisnessLogic.Controller.Tests
 		public void SetNewUserDataTest()
 		{
 			// Arrange
+			var rnd = new Random();
 			var userName = Guid.NewGuid().ToString();
-			var birthDate = DateTime.Now.AddYears(-20);
-			var weight = 100.0;
-			var height = 190;
+			var birthDate = DateTime.Now.AddYears( - rnd.Next() % 25);
+			var weight = rnd.Next(50, 120);
+			var height = rnd.Next(100, 220);
 			var genderName = 'M';
 			var newUser = new UserController(userName);
 

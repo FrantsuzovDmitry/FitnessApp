@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace FitnessApp.BuisnessLogic.Model
 	/// </summary>
 	public class Gender
 	{
+		[JsonProperty("name")]
 		public string Name { get; }
 
 		public Gender(string name)
@@ -25,7 +27,7 @@ namespace FitnessApp.BuisnessLogic.Model
 			else if (name.ToLower() == "m")
 				Name = "Man";
 			else
-				Name = name;
+				Name = "Not settled";
 		}
 	}
 }

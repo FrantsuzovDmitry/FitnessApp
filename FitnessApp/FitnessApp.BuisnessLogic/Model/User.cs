@@ -1,6 +1,8 @@
 ﻿using FitnessApp.BuisnessLogic.Controller;
 using Newtonsoft.Json;
 using System;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace FitnessApp.BuisnessLogic.Model
 {
@@ -8,27 +10,25 @@ namespace FitnessApp.BuisnessLogic.Model
 	{
 		public string Name { get; }
 
-		public Gender Gender { get; set; }
+		public Gender Gender { get; private set; }
 
-		public DateTime BirthDate { get; set; }
+		public DateTime BirthDate { get; private set; }
 
-		public double Weight { get; set; }
+		public double Weight { get; private set; }
+
+		private const int STANDATD_VAL = 100;
 
 		/// <summary>
 		/// Height in cm (centimeters)
 		/// </summary>
-		public int Height { get; set; }
+		public int Height { get; private set; }
 
 		// Calculating field
 		public int Age { get { return (int)(DateTime.Now - BirthDate).TotalDays / 365; }}
 
 		[JsonConstructor]
-		public User(string name)
-		{
-			if (name.IsNullOrWhiteSpace())
-				throw new ArgumentNullException("Имя не может быть пустым.", nameof(name));
-			Name = name;
-		}
+		public User(string name) :
+			this(name, new Gender("null"), DateTime.UtcNow, STANDATD_VAL, STANDATD_VAL) { }
 
 		public User(string name,
 					Gender gender, 
@@ -36,18 +36,7 @@ namespace FitnessApp.BuisnessLogic.Model
 					double weight, 
 					int height)
 		{
-			#region Check input parameters
-			if (name.IsNullOrWhiteSpace())
-				throw new ArgumentNullException("Имя не может быть пустым.", nameof(name));
-			if (gender == null) 
-				throw new ArgumentNullException("Гендер не может быть пустым.", nameof(gender));
-			if (birthDate <  DateTime.Parse("01.01.1950") || birthDate > DateTime.Now)
-				throw new ArgumentNullException("Некорректно задана дата.", nameof(birthDate));
-			if (weight <= 10 || weight > 320)
-				throw new ArgumentNullException("Некорректно задан вес.", nameof(weight));
-			if (height <= 70 || height > 280)
-				throw new ArgumentNullException("Некорректно задан рост.", nameof(height));
-			#endregion
+			CheckInputParameters(gender, ref birthDate, ref weight, ref height, name);
 
 			Name = name;
 			Gender = gender;
@@ -56,10 +45,36 @@ namespace FitnessApp.BuisnessLogic.Model
 			Height = height;
 		}
 
+		private static void CheckInputParameters(
+			Gender gender, ref DateTime birthDate, ref double weight, ref int height, string name = "StandardValue")
+		{
+			if (name.IsNullOrWhiteSpace())
+				throw new ArgumentNullException("Имя не может быть пустым.", nameof(name));
+			if (gender == null)
+				throw new ArgumentNullException("Гендер не может быть пустым.", nameof(gender));
+			if (birthDate <  DateTime.Parse("01.01.1950") || birthDate > DateTime.Now)
+				throw new ArgumentNullException("Некорректно задана дата.", nameof(birthDate));
+			if (weight <= 10 || weight > 320)
+				throw new ArgumentNullException("Некорректно задан вес.", nameof(weight));
+			if (height <= 70 || height > 280)
+				throw new ArgumentNullException("Некорректно задан рост.", nameof(height));
+		}
+
+		public void SetNewParameters(
+			string genderName, ref DateTime birthDate, ref double weight, ref int height)
+		{
+			this.Gender = new Gender(genderName);
+			CheckInputParameters(Gender, ref birthDate, ref weight, ref height);
+			this.BirthDate = birthDate;
+			this.Weight = weight;
+			this.Height = height;
+		}
+
 		public override string ToString()
 		{
 			return Name + " " + Age + " y.o.";
 		}
+
 		public override bool Equals(object? obj)
 		{
 			if (obj == null || GetType() != obj.GetType())
@@ -76,6 +91,5 @@ namespace FitnessApp.BuisnessLogic.Model
 					this.Height == user.Height;
 			}
 		}
-
 	}
 }

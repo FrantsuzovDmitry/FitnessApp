@@ -1,26 +1,26 @@
 ﻿using FitnessApp.BuisnessLogic.Model;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Bson;
-using System;
 
 namespace FitnessApp.BuisnessLogic.Controller
 {
-	public class UserController
+	public class UserController : BaseController
 	{
 		public List<User> Users { get; }
-		public User CurrentUser { get; }
+		public User CurrentUser { get; private set; }
 		public bool IsNewUser { get; } = false;		// flag by default is false
 
-		private const string UsersDataFileInfo = "users.json";
+		private const string USERS_FILE_NAME = "users.json";
 
 		public UserController(string username)
 		{
+			// Getting all users data
 			if (username.IsNullOrWhiteSpace())
-				throw new ArgumentNullException("User name is empty!", nameof(username));
+				throw new ArgumentNullException("User name cannot be empty!", nameof(username));
 			Users = GetUsersData();
 
 			CurrentUser = Users.SingleOrDefault(u => u.Name == username);
 
+			// Creating of new user and saving in file
 			if (CurrentUser == null)
 			{
 				IsNewUser = true;
@@ -32,34 +32,18 @@ namespace FitnessApp.BuisnessLogic.Controller
 
 		public void SetNewUserData(char genderName, DateTime birthDate, double weight, int height)
 		{
-			CurrentUser.Gender = new Gender(genderName.ToString());
-			CurrentUser.BirthDate = birthDate;
-			CurrentUser.Weight = weight;
-			CurrentUser.Height = height;
+			CurrentUser.SetNewParameters(genderName.ToString(), ref birthDate, ref weight, ref height);
+
 			Save();
 		}
 
 		/// <summary>
 		/// Save data about all users (rewrite in file)
 		/// </summary>
+		/// <returns> Result of operation: true - successful, false - failed </returns>
 		public bool Save()
 		{
-			try
-			{
-				var serializedObject = JsonConvert.SerializeObject(Users);
-
-				// Rewrite in file
-				using (var sw = new StreamWriter(UsersDataFileInfo))
-				{
-					sw.Write(serializedObject);
-				}
-				return true;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine("Error while saving: " + ex.Message);
-				return false;
-			}
+			return base.Save(USERS_FILE_NAME, Users);
 		}
 
 		/// <summary>
@@ -67,32 +51,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 		/// </summary>
 		private List<User> GetUsersData()
 		{
-			try
-			{
-				string serializedUsers;
-				List<User> users;
-
-				if (File.Exists(UsersDataFileInfo))
-				{
-					using (var sr = new StreamReader(UsersDataFileInfo))
-					{
-						serializedUsers = sr.ReadToEnd();
-					}
-
-					users = JsonConvert.DeserializeObject<List<User>>(serializedUsers)
-							   ?? new List<User>();
-
-					return users;
-				}
-				else
-				{
-					return new List<User>();
-				}
-			}
-			catch
-			{
-				throw;
-			}
+			return base.Load<List<User>>(USERS_FILE_NAME) ?? new List<User>();
 		}
 	}
 }
