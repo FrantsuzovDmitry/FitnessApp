@@ -33,7 +33,6 @@ namespace FitnessApp.BuisnessLogic.Controller
 		public void SetNewUserData(char genderName, DateTime birthDate, double weight, int height)
 		{
 			CurrentUser.SetNewParameters(genderName.ToString(), ref birthDate, ref weight, ref height);
-
 			Save();
 		}
 
