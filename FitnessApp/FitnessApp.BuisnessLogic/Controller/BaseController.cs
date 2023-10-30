@@ -56,5 +56,10 @@ namespace FitnessApp.BuisnessLogic.Controller
 				throw;
 			}
 		}
+
+		internal T Load<T>(object eXERCISES_FILE_NAME)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
