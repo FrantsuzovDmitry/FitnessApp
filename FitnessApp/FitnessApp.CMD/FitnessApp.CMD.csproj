@@ -12,17 +12,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Messages\Messages_ru.Designer.cs">
+    <Compile Update="Messages\Messages_eng.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Messages_ru.resx</DependentUpon>
+      <DependentUpon>Messages_eng.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Messages\Messages_ru.resx">
+    <EmbeddedResource Update="Messages\Messages_eng.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Messages_ru.Designer.cs</LastGenOutput>
+      <LastGenOutput>Messages_eng.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
