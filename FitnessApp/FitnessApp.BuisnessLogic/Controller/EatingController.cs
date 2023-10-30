@@ -25,7 +25,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 			Eating = GetEating();
 		}
 
-		public void Add(Food food, int weightGramm)
+		public void AddFoodToEating(Food food, int weightGramm)
 		{
 			var existingFood = Foods.SingleOrDefault(f => f.Name == food.Name);
 			if (existingFood != null)

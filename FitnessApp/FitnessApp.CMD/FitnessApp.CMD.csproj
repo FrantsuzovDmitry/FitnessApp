@@ -11,4 +11,19 @@
     <ProjectReference Include="..\FitnessApp.BuisnessLogic\FitnessApp.BuisnessLogic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Messages\Messages_ru.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Messages_ru.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Messages\Messages_ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages_ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

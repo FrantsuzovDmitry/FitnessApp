@@ -77,7 +77,7 @@ namespace FitnessApp.BuisnessLogic.Model
 
 		public override string ToString()
 		{
-			return Name + " " + Age + " y.o.";
+			return $"{Name} {Age} y.o., {Height}sm, {Weight}kg";
 		}
 
 		public override bool Equals(object? obj)

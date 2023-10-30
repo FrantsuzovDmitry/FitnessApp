@@ -26,7 +26,7 @@ namespace FitnessApp.BuisnessLogic.Controller.Tests
 				rnd.NextSingle(), rnd.NextSingle(), rnd.NextSingle(), rnd.NextSingle());
 
 			// Act
-			eatingController.Add(food, 100);
+			eatingController.AddFoodToEating(food, 100);
 
 			// Assert
 			// Comparison of foods name

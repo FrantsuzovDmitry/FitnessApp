@@ -12,37 +12,101 @@ namespace FitnessApp.CMD
 {
 	class Program
 	{
+		private const short MinWeight = 20;
+		private const int MinHeight = 70;
+		private const int MaxHeight = 280;
+
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Welcome in Fitness app made by Dmitriy Frantsuzov");
+			Console.WriteLine(Messages.Messages_eng.StartingMessage);
 
-			string name = GetData<string>("Input your name:", "Incorrect name!",
-									input => input.Length >= 2);
+			string name = GetData<string>(prompt: Messages.Messages_eng.EnterName, 
+											errorMessage: "Incorrect name!",
+											validation: input => input.Length >= 2);
 
 			var userController = new UserController(name);
 
 			if (userController.IsNewUser)
 			{
 				#region Input user's data
-				char gender = GetData<char>("Input your gender(M or W):", "Incorrect gender",
-											input => input.Length == 1 &&
-											(input[0] == 'M' || input[0] == 'W' ||
-											input[0] == 'm' || input[0] == 'w'));
-				DateTime birthDate = GetData<DateTime>("Input your birth date (dd.MM.yyyy):",
-														"Incorrect birthdate",
-														input => DateTime.TryParse(input, out _));
-				double weight = GetData<double>("Input your weight:", "Incorrect weight",
-												input => double.TryParse(input, out double result)
-												&& result >= 20);
-				int height = GetData<int>("Input your height:", "Incorrect height",
-											input => Int32.TryParse(input, out int result)
-											&& result >= 70 && result <= 280);
+				char gender = GetData<char>(prompt: Messages.Messages_eng.EnterGender, 
+											errorMessage: "Incorrect gender",
+											validation: input => input.Length == 1 &&
+													(input[0] == 'M' || input[0] == 'W' ||
+													input[0] == 'm' || input[0] == 'w'));
+
+				DateTime birthDate = GetData<DateTime>(prompt: Messages.Messages_eng.EnterBirthDate,
+														errorMessage: "Incorrect birthdate",
+														validation: input => DateTime.TryParse(input, out _));
+
+				double weight = GetData<double>(prompt: Messages.Messages_eng.EnterWeight,
+												errorMessage: "Incorrect weight",
+												validation: input => 
+													double.TryParse(input, out double result) && result >= MinWeight);
+
+				int height = GetData<int>(prompt: Messages.Messages_eng.EnterHeight, 
+											errorMessage: "Incorrect height", 
+											validation: input => 
+												Int32.TryParse(input, out int result) && 
+												result >= MinHeight && result <= MaxHeight);
 				#endregion
 
 				userController.SetNewUserData(gender, birthDate, weight, height);
 			}
 
 			Console.WriteLine(userController.CurrentUser);
+
+			Console.WriteLine(Messages.Messages_eng.SelectingOfAction);
+            Console.WriteLine($"1. {Messages.Messages_eng.FoodTranslate}");
+            Console.WriteLine($"E. {Messages.Messages_eng.ExitTranslate}");
+
+			var input = Console.ReadKey();
+			while (input.KeyChar != 'E' && input.KeyChar != 'e')
+			{
+				if (input.KeyChar == '1')
+				{
+                    Console.WriteLine();
+                    var eatingController = new EatingController(userController.CurrentUser);
+					var portion = EnterEating();
+					eatingController.AddFoodToEating(portion.Food, portion.Weight);
+
+					foreach (var item in eatingController.Eating.Foods)
+					{
+						///???????????????????????
+						///???????????????????????
+						///???????????????????????
+						// ЗАМЕНИТЬ В DICTIONARY [KEY]FOOD НА STRING, ЧТОБЫ НЕ ЕБАТЬСЯ С ДЕСЕРЕАЛИЗАЦИЕЙ
+						///???????????????????????
+						///???????????????????????
+						///???????????????????????
+						Console.WriteLine($"{item.Key} - {item.Value}");
+                    }
+				}
+				input = Console.ReadKey();
+			}
+
+			return;
+        }
+
+		private static (Food Food, int Weight) EnterEating()
+		{
+			Console.WriteLine(Messages.Messages_eng.EnterFood);
+
+			Console.Write("Food name: ");
+			var foodName = Console.ReadLine();
+			Console.Write("Food calories per 100g: ");
+			var calories = float.Parse(Console.ReadLine());
+			Console.Write("Food proteins per 100g: ");
+			var proteins = float.Parse(Console.ReadLine());
+			Console.Write("Food fats per 100g: ");
+			var fats = float.Parse(Console.ReadLine());
+			Console.Write("Food carbohydrates per 100g: ");
+			var carbohydrates = float.Parse(Console.ReadLine());
+
+			Console.Write(Messages.Messages_eng.EnterWeightOfPortion);
+			int.TryParse(Console.ReadLine(), out int portionWeight);
+
+			return (Food: new Food(foodName, proteins, fats, carbohydrates, calories), Weight: portionWeight);
 		}
 
 		/// <summary>
@@ -83,83 +147,5 @@ namespace FitnessApp.CMD
 
 			return result;
 		}
-
-		/*
-		private static char GetGender()
-		{
-			char gender;
-			do
-			{
-				Console.Write("Input your gender (M or W): ");
-				gender = Console.ReadKey().KeyChar;
-				Console.WriteLine();
-
-				if (gender != 'M' && gender != 'm' && gender != 'W' && gender != 'w')
-				{
-					Console.WriteLine("Gender error");
-				}
-
-			} while (gender != 'M' && gender != 'm' && gender != 'W' && gender != 'w');
-
-			return gender;
-		}
-
-		private static DateTime GetBirthDate()
-		{
-			DateTime birthDate;
-			do
-			{
-				Console.Write("Input your birth date (MM/dd/yyyy): ");
-				if (DateTime.TryParse(Console.ReadLine(), out birthDate))
-				{
-					break;
-				}
-				else
-				{
-					Console.WriteLine("Incorrect birthdate!");
-				}
-			} while (true);
-
-			return birthDate;
-		}
-
-		private static string GetUserName()
-		{
-			string name;
-			do
-			{
-				Console.Write("Input your name: ");
-				name = Console.ReadLine();
-
-				if (name == null || name.Length < 2)
-				{
-					Console.WriteLine("Incorrect name!");
-				}
-				else
-					break;
-			} while (true);
-
-			return name;
-		}
-
-		private static double GetWeight()
-		{
-			double weight;
-			do
-			{
-				Console.Write("Input your weight: ");
-				if (double.TryParse(Console.ReadLine(), out weight) && weight >= 20)
-				{
-					break;
-				}
-				else
-				{
-					Console.WriteLine("Incorrect weight");
-				}
-			} while (true);
-
-			return weight;
-		}
-		*/
 	}
 }
