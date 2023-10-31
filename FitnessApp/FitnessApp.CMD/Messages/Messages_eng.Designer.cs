@@ -124,6 +124,15 @@ namespace FitnessApp.CMD.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter an exercise.
+        /// </summary>
+        internal static string ExerciseTranslate {
+            get {
+                return ResourceManager.GetString("ExerciseTranslate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
         internal static string ExitTranslate {
@@ -133,7 +142,7 @@ namespace FitnessApp.CMD.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Food or F - Enter a eating.
+        ///   Looks up a localized string similar to Enter an eating.
         /// </summary>
         internal static string FoodTranslate {
             get {

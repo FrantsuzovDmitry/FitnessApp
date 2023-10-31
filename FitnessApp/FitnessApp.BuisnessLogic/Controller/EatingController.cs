@@ -21,8 +21,8 @@ namespace FitnessApp.BuisnessLogic.Controller
 		{
 			this.user = user ?? throw new ArgumentNullException("User cannot be null", nameof(user));
 
-			Foods = GetAllFoods();
-			Eating = GetEating();
+			//Foods = GetAllFoods();
+			//Eating = GetEating();
 		}
 
 		public void AddFoodToEating(Food food, int weightGramm)

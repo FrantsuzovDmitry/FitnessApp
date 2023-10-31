@@ -4,7 +4,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 {
 	public class ExerciseController : BaseController
 	{
-		private readonly User user;
+		private readonly User _user;
 
 		private const string EXERCISES_FILE_NAME = "exercises.json";
 		private const string ACTIVITIES_FILE_NAME = "activities.json";
@@ -17,6 +17,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 			if (user == null)
 				throw new ArgumentNullException("User cannot be null", nameof(user));
 
+			_user = user;
 			Activities = LoadActivities();
 			Exercises = LoadExercices();
 		}
@@ -28,12 +29,12 @@ namespace FitnessApp.BuisnessLogic.Controller
 			{
 				Activities.Add(activity);
 
-				var exercise = new Exercise(activity.Name, startTime, endTime);
+				var exercise = new Exercise(_user, activity.Name, startTime, endTime);
 				Exercises.Add(exercise);
 			}
 			else
 			{
-				var exercise = new Exercise(act.Name, startTime, endTime);
+				var exercise = new Exercise(_user, act.Name, startTime, endTime);
 				Exercises.Add(exercise);
 			}
 

@@ -138,11 +138,14 @@
   <data name="EnterWeightOfPortion" xml:space="preserve">
     <value>Weight of portion in gramms:</value>
   </data>
+  <data name="ExerciseTranslate" xml:space="preserve">
+    <value>Enter an exercise</value>
+  </data>
   <data name="ExitTranslate" xml:space="preserve">
     <value>Exit</value>
   </data>
   <data name="FoodTranslate" xml:space="preserve">
-    <value>Food or F - Enter a eating</value>
+    <value>Enter an eating</value>
   </data>
   <data name="SelectingOfAction" xml:space="preserve">
     <value>What do you want to do?</value>

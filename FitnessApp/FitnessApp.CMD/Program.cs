@@ -20,16 +20,18 @@ namespace FitnessApp.CMD
 		{
 			Console.WriteLine(Messages.Messages_eng.StartingMessage);
 
-			string name = GetData<string>(prompt: Messages.Messages_eng.EnterName, 
+			string name = GetData<string>(prompt: Messages.Messages_eng.EnterName,
 											errorMessage: "Incorrect name!",
 											validation: input => input.Length >= 2);
 
 			var userController = new UserController(name);
+			var eatingController = new EatingController(userController.CurrentUser);
+			var exerciseController = new ExerciseController(userController.CurrentUser);
 
 			if (userController.IsNewUser)
 			{
 				#region Input user's data
-				char gender = GetData<char>(prompt: Messages.Messages_eng.EnterGender, 
+				char gender = GetData<char>(prompt: Messages.Messages_eng.EnterGender,
 											errorMessage: "Incorrect gender",
 											validation: input => input.Length == 1 &&
 													(input[0] == 'M' || input[0] == 'W' ||
@@ -41,13 +43,13 @@ namespace FitnessApp.CMD
 
 				double weight = GetData<double>(prompt: Messages.Messages_eng.EnterWeight,
 												errorMessage: "Incorrect weight",
-												validation: input => 
+												validation: input =>
 													double.TryParse(input, out double result) && result >= MinWeight);
 
-				int height = GetData<int>(prompt: Messages.Messages_eng.EnterHeight, 
-											errorMessage: "Incorrect height", 
-											validation: input => 
-												Int32.TryParse(input, out int result) && 
+				int height = GetData<int>(prompt: Messages.Messages_eng.EnterHeight,
+											errorMessage: "Incorrect height",
+											validation: input =>
+												Int32.TryParse(input, out int result) &&
 												result >= MinHeight && result <= MaxHeight);
 				#endregion
 
@@ -56,17 +58,13 @@ namespace FitnessApp.CMD
 
 			Console.WriteLine(userController.CurrentUser);
 
-			Console.WriteLine(Messages.Messages_eng.SelectingOfAction);
-            Console.WriteLine($"1. {Messages.Messages_eng.FoodTranslate}");
-            Console.WriteLine($"E. {Messages.Messages_eng.ExitTranslate}");
-
+			ShowHint();
 			var input = Console.ReadKey();
 			while (input.KeyChar != 'E' && input.KeyChar != 'e')
 			{
 				if (input.KeyChar == '1')
 				{
-                    Console.WriteLine();
-                    var eatingController = new EatingController(userController.CurrentUser);
+					Console.WriteLine();
 					var portion = EnterEating();
 					eatingController.AddFoodToEating(portion.Food, portion.Weight);
 
@@ -80,31 +78,83 @@ namespace FitnessApp.CMD
 						///???????????????????????
 						///???????????????????????
 						Console.WriteLine($"{item.Key} - {item.Value}");
-                    }
+					}
 				}
+
+				if (input.KeyChar == '2')
+				{
+					AddExercise(exerciseController);
+
+					foreach (var item in exerciseController.Exercises)
+					{
+						Console.WriteLine($"{item.Name} from {item.StartTime} to {item.EndTime}");
+					}
+				}
+				ShowHint();
 				input = Console.ReadKey();
 			}
 
 			return;
-        }
+		}
+
+		private static void AddExercise(ExerciseController controller)
+		{
+            Console.WriteLine(":");
+			var activityName = GetData<string>(prompt: "Enter name of youe exercise",
+												errorMessage: "Incorrect input",
+												input => input != string.Empty && input.Length >= 3);
+
+			var caloriePerMinute = GetData<int>(prompt: "Enter calorie consumption per minute",
+												errorMessage: "Incorrect input",
+												input => Int32.TryParse(input, out _));
+
+			var startTime = GetData<DateTime>(prompt: "Enter start time",
+												errorMessage: "Incorrect input",
+												input => DateTime.TryParse(input, out _));
+
+			var endTime = GetData<DateTime>(prompt: "Enter end time",
+												errorMessage: "Incorrect input",
+												input => DateTime.TryParse(input, out _));
+
+			var activity = new Activity(activityName, caloriePerMinute);
+			controller.AddExercise(activity, startTime, endTime);
+		}
+
+		private static void ShowHint()
+		{
+			Console.WriteLine(Messages.Messages_eng.SelectingOfAction);
+			Console.WriteLine($"1. {Messages.Messages_eng.FoodTranslate}");
+			Console.WriteLine($"2. {Messages.Messages_eng.ExerciseTranslate}");
+			Console.WriteLine($"E. {Messages.Messages_eng.ExitTranslate}");
+		}
 
 		private static (Food Food, int Weight) EnterEating()
 		{
 			Console.WriteLine(Messages.Messages_eng.EnterFood);
 
-			Console.Write("Food name: ");
-			var foodName = Console.ReadLine();
-			Console.Write("Food calories per 100g: ");
-			var calories = float.Parse(Console.ReadLine());
-			Console.Write("Food proteins per 100g: ");
-			var proteins = float.Parse(Console.ReadLine());
-			Console.Write("Food fats per 100g: ");
-			var fats = float.Parse(Console.ReadLine());
-			Console.Write("Food carbohydrates per 100g: ");
-			var carbohydrates = float.Parse(Console.ReadLine());
+			var foodName = GetData<string>(prompt: "Enter food name",
+											errorMessage: "Incorrect input",
+											input => input != string.Empty);
 
-			Console.Write(Messages.Messages_eng.EnterWeightOfPortion);
-			int.TryParse(Console.ReadLine(), out int portionWeight);
+			var calories = GetData<float>(prompt: "Enter calories per 100g:",
+											errorMessage: "Incorrect input",
+											input => float.TryParse(input, out _));
+
+			var proteins = GetData<float>(prompt: "Enter proteins per 100g:",
+											errorMessage: "Incorrect input",
+											input => float.TryParse(input, out _));
+
+			var fats = GetData<float>(prompt: "Enter fats per 100g:",
+											errorMessage: "Incorrect input",
+											input => float.TryParse(input, out _));
+
+			var carbohydrates = GetData<float>(prompt: "Enter carbohydrates per 100g:",
+											errorMessage: "Incorrect input",
+											input => float.TryParse(input, out _));
+
+			var portionWeight = GetData<int>(prompt: Messages.Messages_eng.EnterWeightOfPortion,
+											errorMessage: "Incorrect input",
+											input => int.TryParse(input, out _));
 
 			return (Food: new Food(foodName, proteins, fats, carbohydrates, calories), Weight: portionWeight);
 		}
