@@ -14,15 +14,12 @@ namespace FitnessApp.BuisnessLogic.Controller
 		public List<Food> Foods;
 		public Eating Eating;
 
-		private const string FOODS_FILE_NAME = "foods.json";
-		private const string EATINGS_FILE_NAME = "eatings.json";
-
 		public EatingController(User user)
 		{
 			this.user = user ?? throw new ArgumentNullException("User cannot be null", nameof(user));
 
 			//Foods = GetAllFoods();
-			//Eating = GetEating();
+			//Eating = GetEatings();
 		}
 
 		public void AddFoodToEating(Food food, int weightGramm)
@@ -37,23 +34,23 @@ namespace FitnessApp.BuisnessLogic.Controller
 				Foods.Add(food);
 				Eating.AddFood(food, weightGramm);
 			}
-			Save();
+			//Save();
 		}
 
-		private Eating GetEating()
+		private List<Eating> GetEatings()
 		{
-			return base.Load<Eating>(EATINGS_FILE_NAME) ?? new Eating(user, DateTime.UtcNow);
+			return base.Load<Eating>() ?? new List<Eating>();
 		}
 
 		private List<Food> GetAllFoods()
 		{
-			return base.Load<List<Food>>(FOODS_FILE_NAME) ?? new List<Food>();
+			return base.Load<Food>() ?? new List<Food>();
 		}
 
-		private bool Save()
-		{
-			return	base.Save(FOODS_FILE_NAME, Foods) && 
-					base.Save(EATINGS_FILE_NAME, Eating);
-		}
+		//private void Save()
+		//{
+		//	base.Save(Foods);
+		//	base.Save(Eating);
+		//}
 	}
 }

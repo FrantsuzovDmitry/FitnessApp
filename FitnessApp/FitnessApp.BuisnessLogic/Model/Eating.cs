@@ -12,6 +12,8 @@ namespace FitnessApp.BuisnessLogic.Model
 		public Dictionary<Food, int> Foods { get; private set; }
         public User User { get; }
 
+		public Eating() { }
+
 		[JsonConstructor]
 		public Eating(User user, DateTime time)
 		{

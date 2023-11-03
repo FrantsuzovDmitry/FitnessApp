@@ -151,6 +151,24 @@ namespace FitnessApp.CMD.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to See your activities.
+        /// </summary>
+        internal static string SeeActivities {
+            get {
+                return ResourceManager.GetString("SeeActivities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See your eatings.
+        /// </summary>
+        internal static string SeeEatings {
+            get {
+                return ResourceManager.GetString("SeeEatings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What do you want to do?.
         /// </summary>
         internal static string SelectingOfAction {

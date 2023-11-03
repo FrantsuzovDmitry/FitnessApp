@@ -147,6 +147,12 @@
   <data name="FoodTranslate" xml:space="preserve">
     <value>Enter an eating</value>
   </data>
+  <data name="SeeActivities" xml:space="preserve">
+    <value>See your activities</value>
+  </data>
+  <data name="SeeEatings" xml:space="preserve">
+    <value>See your eatings</value>
+  </data>
   <data name="SelectingOfAction" xml:space="preserve">
     <value>What do you want to do?</value>
   </data>

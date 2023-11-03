@@ -62,7 +62,8 @@ namespace FitnessApp.CMD
 			var input = Console.ReadKey();
 			while (input.KeyChar != 'E' && input.KeyChar != 'e')
 			{
-				if (input.KeyChar == '1')
+				// TODO: make switch instead if
+				if (input.KeyChar == '2')
 				{
 					Console.WriteLine();
 					var portion = EnterEating();
@@ -81,13 +82,24 @@ namespace FitnessApp.CMD
 					}
 				}
 
-				if (input.KeyChar == '2')
+				if (input.KeyChar == '3')
+				{
+                    Console.WriteLine();
+                    foreach (var item in exerciseController.Exercises)
+					{
+						Console.WriteLine($"{item.Name} from {item.StartTime}" +
+														$" to {item.EndTime}");
+					}
+				}
+
+				if (input.KeyChar == '4')
 				{
 					AddExercise(exerciseController);
 
 					foreach (var item in exerciseController.Exercises)
 					{
-						Console.WriteLine($"{item.Name} from {item.StartTime} to {item.EndTime}");
+						Console.WriteLine($"{item.Name} from {item.StartTime}" +
+														$" to {item.EndTime}");
 					}
 				}
 				ShowHint();
@@ -123,8 +135,10 @@ namespace FitnessApp.CMD
 		private static void ShowHint()
 		{
 			Console.WriteLine(Messages.Messages_eng.SelectingOfAction);
-			Console.WriteLine($"1. {Messages.Messages_eng.FoodTranslate}");
-			Console.WriteLine($"2. {Messages.Messages_eng.ExerciseTranslate}");
+			Console.WriteLine($"1. {Messages.Messages_eng.SeeEatings}");
+			Console.WriteLine($"2. {Messages.Messages_eng.FoodTranslate}");
+			Console.WriteLine($"3. {Messages.Messages_eng.SeeActivities}");
+			Console.WriteLine($"4. {Messages.Messages_eng.ExerciseTranslate}");
 			Console.WriteLine($"E. {Messages.Messages_eng.ExitTranslate}");
 		}
 

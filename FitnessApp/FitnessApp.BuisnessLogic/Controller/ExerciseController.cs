@@ -6,9 +6,6 @@ namespace FitnessApp.BuisnessLogic.Controller
 	{
 		private readonly User _user;
 
-		private const string EXERCISES_FILE_NAME = "exercises.json";
-		private const string ACTIVITIES_FILE_NAME = "activities.json";
-
 		public List<Activity> Activities {  get; }
 		public List<Exercise> Exercises {  get; }
 
@@ -18,8 +15,8 @@ namespace FitnessApp.BuisnessLogic.Controller
 				throw new ArgumentNullException("User cannot be null", nameof(user));
 
 			_user = user;
-			Activities = LoadActivities();
-			Exercises = LoadExercices();
+			Activities = GetActivities();
+			Exercises = GetExercices();
 		}
 
 		public void AddExercise(Activity activity, DateTime startTime, DateTime endTime)
@@ -43,23 +40,24 @@ namespace FitnessApp.BuisnessLogic.Controller
 
 		public void AddExercise(Activity activity, int duration)
 		{
-			
+			// TODO
 		}
 
-		private List<Exercise> LoadExercices()
+		private List<Exercise> GetExercices()
 		{
-			return base.Load<List<Exercise>>(EXERCISES_FILE_NAME) ?? new List<Exercise>();
+			// May be I can delete part after "??"
+			return base.Load<Exercise>() ?? new List<Exercise>();
 		}
 
-		private List<Activity> LoadActivities()
+		private List<Activity> GetActivities()
 		{
-			return base.Load<List<Activity>>(ACTIVITIES_FILE_NAME) ?? new List<Activity>();
+			return base.Load<Activity>() ?? new List<Activity>();
 		}
 
 		private void Save()
 		{
-			base.Save(ACTIVITIES_FILE_NAME, Activities);
-			base.Save(EXERCISES_FILE_NAME, Exercises);
+			base.Save(Activities);
+			base.Save(Exercises);
 		}
 	}
 }
