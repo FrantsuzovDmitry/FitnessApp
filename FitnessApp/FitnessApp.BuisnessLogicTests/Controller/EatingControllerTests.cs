@@ -26,11 +26,12 @@ namespace FitnessApp.BuisnessLogic.Controller.Tests
 				rnd.NextSingle(), rnd.NextSingle(), rnd.NextSingle(), rnd.NextSingle());
 
 			// Act
-			eatingController.AddFoodToEating(food, 100);
+			var weightOfPortion = rnd.Next(50, 500);
+			eatingController.AddFoodToEating(food, weightOfPortion);
 
 			// Assert
-			// Comparison of foods name
-			Assert.AreEqual(food.Name, eatingController.Eating.Foods.First().Key.Name);
+			Assert.AreEqual(food, eatingController.GetFoodByName(fname));
+			Assert.AreEqual(weightOfPortion, eatingController.Eating.Foods.Last().Value);
 		}
 	}
 }

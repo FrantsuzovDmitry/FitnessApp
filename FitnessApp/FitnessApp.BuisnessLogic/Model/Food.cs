@@ -32,5 +32,22 @@ namespace FitnessApp.BuisnessLogic.Model
 		{
 			return Name;
 		}
+
+		public override bool Equals(object? obj)
+		{
+			if (obj == null || GetType() != obj.GetType())
+			{
+				return false;
+			}
+			else
+			{
+				Food f = (Food)obj;
+				return this.Name == f.Name &&
+					this.Proteins == f.Proteins &&
+					this.Fats == f.Fats &&
+					this.Carbohidrates == f.Carbohidrates &&
+					this.Calories == f.Calories;
+			}
+		}
 	}
 }
