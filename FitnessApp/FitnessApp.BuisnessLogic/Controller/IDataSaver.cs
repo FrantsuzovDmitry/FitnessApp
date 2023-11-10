@@ -10,6 +10,5 @@ namespace FitnessApp.BuisnessLogic.Controller
 	{
 		void Save<T>(List<T> item);
 		List<T> Load<T>();
-
 	}
 }

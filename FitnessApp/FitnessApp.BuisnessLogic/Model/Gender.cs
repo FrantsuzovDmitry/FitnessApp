@@ -1,13 +1,13 @@
-﻿
-
-namespace FitnessApp.BuisnessLogic.Model
+﻿namespace FitnessApp.BuisnessLogic.Model
 {
 	/// <summary>
 	/// Gender (sex) of human
 	/// </summary>
 	public class Gender
 	{
-		public string Name { get; }
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public ICollection<User> Users { get; set; }
 
 		public Gender(string name)
 		{

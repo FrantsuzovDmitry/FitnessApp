@@ -9,24 +9,26 @@ namespace FitnessApp.BuisnessLogic.Model
 {
 	public class Exercise
 	{
+		public int Id { get; set; }
+		public int UserId { get; set; }
 		public readonly User User;
-
-		public string Name { get; set; }
-
+		public int ActivityId { get; set; }		// Foreign key
+		public Activity Activity { get; set; }
 		public DateTime StartTime { get; set; }
-
 		public DateTime EndTime { get; set; }
 
+		public Exercise() { }
+
 		[JsonConstructor]
-		public Exercise(User user, string name, DateTime startTime, DateTime endTime)
+		public Exercise(User user, Activity activity, DateTime startTime, DateTime endTime)
 		{
-			if (name == null || name ==  string.Empty)
-				throw new ArgumentNullException("Exercise name cannot be null", nameof(name));
+			if (activity == null)
+				throw new ArgumentNullException("Activity cannot be null", nameof(activity));
 			if (user == null) 
 				throw new ArgumentNullException("User cannot be null", nameof(user));
 
 			User = user;
-			Name = name;
+			Activity = activity;
 			StartTime = startTime;
 			EndTime = endTime;
 		}

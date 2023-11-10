@@ -16,7 +16,7 @@ namespace FitnessApp.CMD
 		private const int MinHeight = 70;
 		private const int MaxHeight = 280;
 
-		static void Main(string[] args)
+		static void Main()
 		{
 			Console.WriteLine(Messages.Messages_eng.StartingMessage);
 
@@ -62,46 +62,53 @@ namespace FitnessApp.CMD
 			var input = Console.ReadKey();
 			while (input.KeyChar != 'E' && input.KeyChar != 'e')
 			{
-				// TODO: make switch instead if
-				if (input.KeyChar == '2')
+				switch (input.KeyChar)
 				{
-					Console.WriteLine();
-					var portion = EnterEating();
-					eatingController.AddFoodToEating(portion.Food, portion.Weight);
+					// See eatings
+					case '1':
+						Console.WriteLine();
+						Console.WriteLine("===== YOUR EATINGS =====");
+						foreach (var item in eatingController.Eating.Portions)
+						{
+							Console.WriteLine(eatingController.Foods.FirstOrDefault(f => f.Name == item.Key));
+						}
+						break;
+					
+					// Enter an eating
+					case '2':
+						Console.WriteLine();
+						var portion = EnterEating();
+						eatingController.AddFoodToEating(portion.Food, portion.Weight);
 
-					foreach (var item in eatingController.Eating.Foods)
-					{
-						///???????????????????????
-						///???????????????????????
-						///???????????????????????
-						// ЗАМЕНИТЬ В DICTIONARY [KEY]FOOD НА STRING, ЧТОБЫ НЕ ЕБАТЬСЯ С ДЕСЕРЕАЛИЗАЦИЕЙ
-						///???????????????????????
-						///???????????????????????
-						///???????????????????????
-						Console.WriteLine($"{item.Key} - {item.Value}");
-					}
+						foreach (var item in eatingController.Eating.Portions)
+						{
+							Console.WriteLine($"{item.Key} - {item.Value}g");
+						}
+						break;
+
+					// See activities
+					case '3':
+						Console.WriteLine();
+                        Console.WriteLine("===== YOUR ACTIVITIES =====");
+                        foreach (var item in exerciseController.Exercises)
+						{
+							Console.WriteLine($"{item.Activity.Name} from {item.StartTime}" +
+																	$" to {item.EndTime}");
+						}
+						break;
+
+					// Add activity
+					case '4':
+						AddExercise(exerciseController);
+
+						foreach (var item in exerciseController.Exercises)
+						{
+							Console.WriteLine($"{item.Activity.Name} from {item.StartTime}" +
+																	$" to {item.EndTime}");
+						}
+						break;
 				}
 
-				if (input.KeyChar == '3')
-				{
-                    Console.WriteLine();
-                    foreach (var item in exerciseController.Exercises)
-					{
-						Console.WriteLine($"{item.Name} from {item.StartTime}" +
-														$" to {item.EndTime}");
-					}
-				}
-
-				if (input.KeyChar == '4')
-				{
-					AddExercise(exerciseController);
-
-					foreach (var item in exerciseController.Exercises)
-					{
-						Console.WriteLine($"{item.Name} from {item.StartTime}" +
-														$" to {item.EndTime}");
-					}
-				}
 				ShowHint();
 				input = Console.ReadKey();
 			}
@@ -134,7 +141,8 @@ namespace FitnessApp.CMD
 
 		private static void ShowHint()
 		{
-			Console.WriteLine(Messages.Messages_eng.SelectingOfAction);
+            Console.WriteLine();
+            Console.WriteLine(Messages.Messages_eng.SelectingOfAction);
 			Console.WriteLine($"1. {Messages.Messages_eng.SeeEatings}");
 			Console.WriteLine($"2. {Messages.Messages_eng.FoodTranslate}");
 			Console.WriteLine($"3. {Messages.Messages_eng.SeeActivities}");

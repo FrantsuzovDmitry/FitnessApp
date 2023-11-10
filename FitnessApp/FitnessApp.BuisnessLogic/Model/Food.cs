@@ -9,12 +9,18 @@ namespace FitnessApp.BuisnessLogic.Model
 {
 	public class Food
 	{
+		public int Id { get; set; }
 		public string Name { get; set; }
+
 		// Params of product per 1 g
-		public float Proteins { get; }
-		public float Fats { get; }
-		public float Carbohidrates { get; }
-		public float Calories { get; }
+		public float Proteins { get; set; }
+		public float Fats { get; set; }
+		public float Carbohidrates { get; set; }
+		public float Calories { get; set;}
+
+		public ICollection<Eating> Eatings { get; set; }
+
+		public Food() { }
 
 		public Food(string name) : this(name, 0, 0, 0, 0) { }
 
@@ -30,7 +36,11 @@ namespace FitnessApp.BuisnessLogic.Model
 
 		public override string ToString()
 		{
-			return Name;
+			return $"{Name}:\n" +
+					$"\tProteins: {Proteins * 100}\n" +
+					$"\tFats: {Fats * 100}\n" +
+					$"\tCarbohydrates: {Carbohidrates * 100}\n" +
+					$"\tCalories: {Calories * 100}\n";
 		}
 
 		public override bool Equals(object? obj)

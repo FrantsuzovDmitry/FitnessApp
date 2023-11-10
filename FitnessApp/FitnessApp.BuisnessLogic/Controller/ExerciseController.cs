@@ -4,7 +4,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 {
 	public class ExerciseController : BaseController
 	{
-		private readonly User _user;
+		private readonly User user;
 
 		public List<Activity> Activities {  get; }
 		public List<Exercise> Exercises {  get; }
@@ -14,7 +14,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 			if (user == null)
 				throw new ArgumentNullException("User cannot be null", nameof(user));
 
-			_user = user;
+			this.user = user;
 			Activities = GetActivities();
 			Exercises = GetExercices();
 		}
@@ -26,12 +26,12 @@ namespace FitnessApp.BuisnessLogic.Controller
 			{
 				Activities.Add(activity);
 
-				var exercise = new Exercise(_user, activity.Name, startTime, endTime);
+				var exercise = new Exercise(user, activity, startTime, endTime);
 				Exercises.Add(exercise);
 			}
 			else
 			{
-				var exercise = new Exercise(_user, act.Name, startTime, endTime);
+				var exercise = new Exercise(user, act, startTime, endTime);
 				Exercises.Add(exercise);
 			}
 
@@ -45,7 +45,6 @@ namespace FitnessApp.BuisnessLogic.Controller
 
 		private List<Exercise> GetExercices()
 		{
-			// May be I can delete part after "??"
 			return base.Load<Exercise>() ?? new List<Exercise>();
 		}
 

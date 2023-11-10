@@ -7,11 +7,18 @@ using System.Threading.Tasks;
 
 namespace FitnessApp.BuisnessLogic.Model
 {
+	/// <summary>
+	/// A group of exercises, e.g., going to the gym
+	/// </summary>
 	public class Activity
 	{
-		public string Name { get; }
-
+		public int Id { get; set; }
+		public string Name { get; set; }
 		public int CaloriesPerMinute { get; }
+		
+		public virtual ICollection<Exercise> Exercises { get; set; }
+
+		public Activity() { }
 
 		[JsonConstructor]
 		public Activity(string name, int caloriesPerMinute)

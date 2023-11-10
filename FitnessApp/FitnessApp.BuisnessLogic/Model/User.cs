@@ -8,23 +8,24 @@ namespace FitnessApp.BuisnessLogic.Model
 {
 	public class User
 	{
-		public string Name { get; }
-
-		public Gender Gender { get; private set; }
-
-		public DateTime BirthDate { get; private set; }
-
-		public double Weight { get; private set; }
-
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public int GenderId { get; set; }
+		public Gender Gender { get; private set; }			// maybe PUBLIC set
+		public DateTime BirthDate { get; private set; }     // maybe PUBLIC set
+		public double Weight { get; private set; }          // maybe PUBLIC set
 		/// <summary>
 		/// Height in cm (centimeters)
 		/// </summary>
-		public int Height { get; private set; }
-
-		// Calculating field
+		public int Height { get; private set; }             // maybe PUBLIC set
+			// Calculating field
 		public int Age { get { return (int)(DateTime.Now - BirthDate).TotalDays / 365; }}
 
-		
+		public ICollection<Eating> Eatings { get; set; }
+		public ICollection<Exercise> Exercises { get; set; }
+
+		public User() { }
+
 		public User(string name)
 		{
 			if (name.IsNullOrWhiteSpace())
