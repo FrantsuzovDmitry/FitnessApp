@@ -5,7 +5,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 {
 	public class UserController : BaseController
 	{
-		public List<User> Users { get; }
+		private List<User> Users { get; }
 		public User CurrentUser { get; private set; }
 		public bool IsNewUser { get; } = false;		// flag by default is false
 
@@ -48,7 +48,6 @@ namespace FitnessApp.BuisnessLogic.Controller
 		/// </summary>
 		private List<User> GetAllUsers()
 		{
-			// May be I can delete part after "??"
 			return base.Load<User>() ?? new List<User>();
 		}
 	}

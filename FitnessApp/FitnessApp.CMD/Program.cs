@@ -60,6 +60,10 @@ namespace FitnessApp.CMD
 
 			ShowHint();
 			var input = Console.ReadKey();
+
+			///
+			/// TODO: TO MAKE DATA RETURNS FROM CONTROLLERS (DECREASE THE COUPLING)
+			///
 			while (input.KeyChar != 'E' && input.KeyChar != 'e')
 			{
 				switch (input.KeyChar)
@@ -68,9 +72,9 @@ namespace FitnessApp.CMD
 					case '1':
 						Console.WriteLine();
 						Console.WriteLine("===== YOUR EATINGS =====");
-						foreach (var item in eatingController.Eating.Portions)
+						foreach (var item in eatingController.Eating.Foods)
 						{
-							Console.WriteLine(eatingController.Foods.FirstOrDefault(f => f.Name == item.Key));
+							Console.WriteLine(item);
 						}
 						break;
 					
@@ -80,9 +84,9 @@ namespace FitnessApp.CMD
 						var portion = EnterEating();
 						eatingController.AddFoodToEating(portion.Food, portion.Weight);
 
-						foreach (var item in eatingController.Eating.Portions)
+						foreach (var item in eatingController.Eating.Foods)
 						{
-							Console.WriteLine($"{item.Key} - {item.Value}g");
+							Console.WriteLine($"{item.Food.Name} - {item.Weight}g");
 						}
 						break;
 
@@ -112,7 +116,6 @@ namespace FitnessApp.CMD
 				ShowHint();
 				input = Console.ReadKey();
 			}
-
 			return;
 		}
 

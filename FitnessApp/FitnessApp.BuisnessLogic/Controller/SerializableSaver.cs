@@ -10,7 +10,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 {
 	public class SerializableSaver : IDataSaver
 	{
-		public void Save<T>(List<T> items)
+		public void Save<T>(List<T> items) where T : class
 		{
 			var fileName = typeof(T).Name + "s.json";
 			try
@@ -27,7 +27,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 			}
 		}
 
-		public List<T> Load<T>()
+		public List<T> Load<T>() where T : class
 		{
 			var fileName = typeof(T).Name + "s.json";
 			string serializedObject;

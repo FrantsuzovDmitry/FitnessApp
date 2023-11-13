@@ -5,9 +5,6 @@ using System.Collections.Generic;
 
 namespace FitnessApp.BuisnessLogic.Controller
 {
-	/// <summary>
-	/// Foods library. Contains the list of foods and theirs parameters(?)
-	/// </summary>
 	public class EatingController : BaseController
 	{
 		private readonly User user;
@@ -27,12 +24,12 @@ namespace FitnessApp.BuisnessLogic.Controller
 			var existingFood = Foods.SingleOrDefault(f => f.Name == food.Name);
 			if (existingFood != null)
 			{
-				Eating.AddFood(existingFood.Name, weightGramm);
+				Eating.AddFood(existingFood, weightGramm);
 			}
 			else
 			{
 				Foods.Add(food);
-				Eating.AddFood(food.Name, weightGramm);
+				Eating.AddFood(food, weightGramm);
 			}
 			Save();
 		}
@@ -47,6 +44,11 @@ namespace FitnessApp.BuisnessLogic.Controller
 				return foodClone;
 			}
 			return f;
+		}
+
+		public List<Food> GetEatingsFoods()
+		{
+			return null;
 		}
 
 		private Eating GetEating()
