@@ -21,7 +21,7 @@ namespace FitnessApp.BuisnessLogic.Controller.Tests
 			var birthDate = DateTime.Now.AddYears( - rnd.Next() % 25);
 			var weight = rnd.Next(50, 120);
 			var height = rnd.Next(100, 220);
-			var genderName = 'M';
+			var genderName = "M";
 			var newUser = new UserController(userName);
 
 			// Act

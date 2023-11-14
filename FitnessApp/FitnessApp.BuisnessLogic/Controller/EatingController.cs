@@ -65,6 +65,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 		{
 			base.Save(Foods);
 			base.Save(new List<Eating> { Eating });
+			//base.Save(Eating.Foods);
 		}
 	}
 }

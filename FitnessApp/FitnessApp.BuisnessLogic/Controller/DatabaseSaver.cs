@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,6 @@ namespace FitnessApp.BuisnessLogic.Controller
 {
 	public class DatabaseSaver : IDataSaver
 	{
-
 		public List<T> Load<T>() where T : class 
 		{
 			using (var db = new FitnessContext())
@@ -17,14 +17,13 @@ namespace FitnessApp.BuisnessLogic.Controller
 				var data = db.Set<T>().ToList();
 				return data;
 			}
-			return new List<T>();
 		}
 
 		public void Save<T>(List<T> items) where T : class 
 		{
 			using (var db = new FitnessContext())
 			{
-				db.Set<T>().AddRange(items);
+				db.Set<T>().UpdateRange(items);
 				db.SaveChanges();
 			}
 		}

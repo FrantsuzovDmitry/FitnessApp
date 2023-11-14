@@ -10,9 +10,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 {
 	public abstract class BaseController
 	{
-		// TODO: set manager in constructor
-		// May be should set manager in constructor
-		private readonly IDataSaver manager = new SerializableSaver();
+		protected readonly IDataSaver manager = new DatabaseSaver();
 
 		protected void Save<T>(List<T> item) where T : class 
 		{

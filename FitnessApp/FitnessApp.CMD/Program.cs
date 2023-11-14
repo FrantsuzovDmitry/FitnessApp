@@ -1,12 +1,5 @@
 ﻿using FitnessApp.BuisnessLogic.Controller;
 using FitnessApp.BuisnessLogic.Model;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FitnessApp.CMD
 {
@@ -31,7 +24,7 @@ namespace FitnessApp.CMD
 			if (userController.IsNewUser)
 			{
 				#region Input user's data
-				char gender = GetData<char>(prompt: Messages.Messages_eng.EnterGender,
+				string gender = GetData<string>(prompt: Messages.Messages_eng.EnterGender,
 											errorMessage: "Incorrect gender",
 											validation: input => input.Length == 1 &&
 													(input[0] == 'M' || input[0] == 'W' ||
@@ -53,6 +46,9 @@ namespace FitnessApp.CMD
 												result >= MinHeight && result <= MaxHeight);
 				#endregion
 
+				//var gender = "m";
+				//var birthDate = DateTime.Now;
+				//var weight = 80; var height = 185;
 				userController.SetNewUserData(gender, birthDate, weight, height);
 			}
 

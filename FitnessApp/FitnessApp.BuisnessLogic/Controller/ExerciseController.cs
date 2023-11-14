@@ -6,8 +6,8 @@ namespace FitnessApp.BuisnessLogic.Controller
 	{
 		private readonly User user;
 
-		public List<Activity> Activities {  get; }
-		public List<Exercise> Exercises {  get; }
+		public List<Activity> Activities { get; }
+		public List<Exercise> Exercises { get; }
 
 		public ExerciseController(User user)
 		{

@@ -11,10 +11,11 @@ namespace FitnessApp.BuisnessLogic.Controller
 		DbSet<Food> Foods { get; set; }
 		DbSet<Activity> Activities { get; set; }
 		DbSet<Exercise> Exercises { get; set; }
+		DbSet<EatingFood> EatingsFoods { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer("Data Source");
+			optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Initial Catalog=Fitness");
 		}
 	}
 }

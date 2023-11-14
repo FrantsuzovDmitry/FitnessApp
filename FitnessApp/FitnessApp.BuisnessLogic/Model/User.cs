@@ -1,8 +1,6 @@
 ﻿using FitnessApp.BuisnessLogic.Controller;
 using Newtonsoft.Json;
 using System;
-using System.Reflection;
-using System.Xml.Linq;
 
 namespace FitnessApp.BuisnessLogic.Model
 {
@@ -10,15 +8,15 @@ namespace FitnessApp.BuisnessLogic.Model
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public int GenderId { get; set; }
-		public Gender Gender { get; private set; }			// maybe PUBLIC set
-		public DateTime BirthDate { get; private set; }     // maybe PUBLIC set
-		public double Weight { get; private set; }          // maybe PUBLIC set
+		public int? GenderId { get; set; }
+		public Gender Gender { get; set; }
+		public DateTime BirthDate { get; set; } = DateTime.Now;
+		public double Weight { get; set; }
 		/// <summary>
 		/// Height in cm (centimeters)
 		/// </summary>
-		public int Height { get; private set; }             // maybe PUBLIC set
-			// Calculating field
+		public int Height { get; set; }
+		// Calculating field
 		public int Age { get { return (int)(DateTime.Now - BirthDate).TotalDays / 365; }}
 
 		public ICollection<Eating> Eatings { get; set; }

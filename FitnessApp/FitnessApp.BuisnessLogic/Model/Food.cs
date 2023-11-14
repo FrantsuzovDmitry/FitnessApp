@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FitnessApp.BuisnessLogic.Model
 {
@@ -18,7 +13,7 @@ namespace FitnessApp.BuisnessLogic.Model
 		public float Carbohidrates { get; set; }
 		public float Calories { get; set;}
 
-		public ICollection<Eating> Eatings { get; set; }
+		public ICollection<EatingFood> EatingFoods { get; set; }
 
 		public Food() { }
 

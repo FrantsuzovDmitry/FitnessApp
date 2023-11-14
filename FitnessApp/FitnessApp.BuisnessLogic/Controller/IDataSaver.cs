@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FitnessApp.BuisnessLogic.Controller
 {
-	internal interface IDataSaver
+	public interface IDataSaver
 	{
 		void Save<T>(List<T> item) where T : class;
 		List<T> Load<T>() where T : class;

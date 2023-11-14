@@ -7,6 +7,7 @@
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
+
 		public ICollection<User> Users { get; set; }
 
 		public Gender() { }
@@ -18,10 +19,12 @@
 			{
 				throw new ArgumentNullException("Имя пола не может быть пустым", nameof(name));
 			}
-			if (name.ToLower() == "w")
-				Name = "Woman";
-			else if (name.ToLower() == "m")
-				Name = "Man";
+
+			name = name.ToLower();
+			if (name == "w" || name == "woman")
+				Name = "woman";
+			else if (name == "m" || name == "man")
+				Name = "man";
 			else
 				Name = name;
 		}

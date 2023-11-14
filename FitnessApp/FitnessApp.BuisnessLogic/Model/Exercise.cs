@@ -11,8 +11,8 @@ namespace FitnessApp.BuisnessLogic.Model
 	{
 		public int Id { get; set; }
 		public int UserId { get; set; }
-		public readonly User User;
-		public int ActivityId { get; set; }		// Foreign key
+		public User User {get; set; }
+		public int ActivityId { get; set; }
 		public Activity Activity { get; set; }
 		public DateTime StartTime { get; set; }
 		public DateTime EndTime { get; set; }

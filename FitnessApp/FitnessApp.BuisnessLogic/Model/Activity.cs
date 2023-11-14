@@ -14,7 +14,7 @@ namespace FitnessApp.BuisnessLogic.Model
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public int CaloriesPerMinute { get; }
+		public int CaloriesPerMinute { get; set; }
 		
 		public virtual ICollection<Exercise> Exercises { get; set; }
 

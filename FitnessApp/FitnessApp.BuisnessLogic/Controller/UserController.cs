@@ -18,17 +18,15 @@ namespace FitnessApp.BuisnessLogic.Controller
 
 			CurrentUser = Users.SingleOrDefault(u => u.Name == username);
 
-			// Creating of new user and saving in file
 			if (CurrentUser == null)
 			{
 				IsNewUser = true;
 				CurrentUser = new User(username);
 				Users.Add(CurrentUser);
-				Save();
 			}
 		}
 
-		public void SetNewUserData(char genderName, DateTime birthDate, double weight, int height)
+		public void SetNewUserData(string genderName, DateTime birthDate, double weight, int height)
 		{
 			CurrentUser.SetNewParameters(genderName.ToString(), ref birthDate, ref weight, ref height);
 			Save();

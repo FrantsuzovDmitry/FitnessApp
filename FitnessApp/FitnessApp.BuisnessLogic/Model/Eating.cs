@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FitnessApp.BuisnessLogic.Model
 {
@@ -9,8 +10,9 @@ namespace FitnessApp.BuisnessLogic.Model
 	public class Eating
 	{
 		public int Id { get; set; }
-		public DateTime Time { get; }
-        public User User { get; }
+		public DateTime Time { get; set; }
+		public int UserId { get; set; }
+        public User User { get; set; }
 		public List<EatingFood> Foods { get; set; }
 
 		public Eating() { }
@@ -32,11 +34,11 @@ namespace FitnessApp.BuisnessLogic.Model
 			if (food.Name.IsNullOrWhiteSpace()) throw new ArgumentNullException("Food must not be empty", nameof(food));
 			if (weight <= 0) throw new ArgumentException("Weight must be greater than 0", nameof(weight));
 
-			var existingFood = Foods.FirstOrDefault(f => f.Food == food);
+			var existingFood = Foods.FirstOrDefault(f => f.Food.Name == food.Name);
 
 			if (existingFood != null)
 			{
-				existingFood.Weight = weight;
+				existingFood.Weight += weight;
 			}
 			else
 			{
@@ -49,7 +51,9 @@ namespace FitnessApp.BuisnessLogic.Model
 	public class EatingFood
 	{
 		public int Id { get; set; }
+		public int EatingId { get; set; }
 		public Eating Eating { get; set; }
+		public int FoodId { get; set; }
 		public Food Food { get; set; }
 		public int Weight { get; set; }
 
