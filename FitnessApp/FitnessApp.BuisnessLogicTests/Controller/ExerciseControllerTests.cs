@@ -26,7 +26,7 @@ namespace FitnessApp.BuisnessLogic.Controller.Tests
 			// Act
 			var startTime = DateTime.UtcNow.AddMinutes(-rnd.Next(1, 65));
 			var endTime = DateTime.UtcNow;
-			exerciseController.AddExercise(activity, startTime, endTime);
+			exerciseController.AddActivity(activity, startTime, endTime);
 
 			// Assert
 			Assert.AreEqual(activity, exerciseController.Activities.Last());

@@ -9,14 +9,10 @@ namespace FitnessApp.BuisnessLogic.Model
 	/// </summary>
 	public class Eating
 	{
-		public int Id { get; set; }
 		public DateTime Time { get; set; }
-		public int UserId { get; set; }
-        public User User { get; set; }
+        public User User { get; set; } = null!;
 		public List<EatingFood> Foods { get; set; }
 
-		public Eating() { }
-		
 		public Eating(User user) : this(user, DateTime.UtcNow) { }
 
 		[JsonConstructor]
@@ -50,11 +46,8 @@ namespace FitnessApp.BuisnessLogic.Model
 	// Relation Eating - Food (Portion)
 	public class EatingFood
 	{
-		public int Id { get; set; }
-		public int EatingId { get; set; }
-		public Eating Eating { get; set; }
-		public int FoodId { get; set; }
-		public Food Food { get; set; }
+		public Eating Eating { get; set; } = null!;
+		public Food Food { get; set; } = null!;
 		public int Weight { get; set; }
 
 		public override string ToString()

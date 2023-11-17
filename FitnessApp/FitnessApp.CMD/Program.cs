@@ -1,5 +1,4 @@
 ﻿using FitnessApp.BuisnessLogic.Controller;
-using FitnessApp.BuisnessLogic.Model;
 
 namespace FitnessApp.CMD
 {
@@ -46,9 +45,6 @@ namespace FitnessApp.CMD
 												result >= MinHeight && result <= MaxHeight);
 				#endregion
 
-				//var gender = "m";
-				//var birthDate = DateTime.Now;
-				//var weight = 80; var height = 185;
 				userController.SetNewUserData(gender, birthDate, weight, height);
 			}
 
@@ -57,9 +53,6 @@ namespace FitnessApp.CMD
 			ShowHint();
 			var input = Console.ReadKey();
 
-			///
-			/// TODO: TO MAKE DATA RETURNS FROM CONTROLLERS (DECREASE THE COUPLING)
-			///
 			while (input.KeyChar != 'E' && input.KeyChar != 'e')
 			{
 				switch (input.KeyChar)
@@ -77,8 +70,7 @@ namespace FitnessApp.CMD
 					// Enter an eating
 					case '2':
 						Console.WriteLine();
-						var portion = EnterEating();
-						eatingController.AddFoodToEating(portion.Food, portion.Weight);
+						AddEatingTpStorage(eatingController);
 
 						foreach (var item in eatingController.Eating.Foods)
 						{
@@ -99,7 +91,7 @@ namespace FitnessApp.CMD
 
 					// Add activity
 					case '4':
-						AddExercise(exerciseController);
+						AddActivityToStorage(exerciseController);
 
 						foreach (var item in exerciseController.Exercises)
 						{
@@ -115,7 +107,7 @@ namespace FitnessApp.CMD
 			return;
 		}
 
-		private static void AddExercise(ExerciseController controller)
+		private static void AddActivityToStorage(ExerciseController controller)
 		{
             Console.WriteLine(":");
 			var activityName = GetData<string>(prompt: "Enter name of youe exercise",
@@ -134,8 +126,7 @@ namespace FitnessApp.CMD
 												errorMessage: "Incorrect input",
 												input => DateTime.TryParse(input, out _));
 
-			var activity = new Activity(activityName, caloriePerMinute);
-			controller.AddExercise(activity, startTime, endTime);
+			controller.AddActivity(activityName, caloriePerMinute, startTime, endTime);
 		}
 
 		private static void ShowHint()
@@ -149,7 +140,7 @@ namespace FitnessApp.CMD
 			Console.WriteLine($"E. {Messages.Messages_eng.ExitTranslate}");
 		}
 
-		private static (Food Food, int Weight) EnterEating()
+		private static void AddEatingTpStorage(EatingController eatingController)
 		{
 			Console.WriteLine(Messages.Messages_eng.EnterFood);
 
@@ -177,7 +168,7 @@ namespace FitnessApp.CMD
 											errorMessage: "Incorrect input",
 											input => int.TryParse(input, out _));
 
-			return (Food: new Food(foodName, proteins, fats, carbohydrates, calories), Weight: portionWeight);
+			eatingController.AddFoodToEating(foodName, proteins, fats, carbohydrates, calories, portionWeight);
 		}
 
 		/// <summary>
@@ -190,7 +181,7 @@ namespace FitnessApp.CMD
 		/// <returns> Entered data in the required format</returns>
 		private static T GetData<T>(string prompt, string errorMessage, Func<string, bool> validation)
 		{
-			T result = default;
+			T? result = default;
 			bool isValidInput = false;
 
 			do

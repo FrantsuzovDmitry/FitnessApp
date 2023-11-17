@@ -1,5 +1,4 @@
 ﻿using FitnessApp.BuisnessLogic.Model;
-using Newtonsoft.Json;
 
 namespace FitnessApp.BuisnessLogic.Controller
 {
@@ -28,7 +27,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 
 		public void SetNewUserData(string genderName, DateTime birthDate, double weight, int height)
 		{
-			CurrentUser.SetNewParameters(genderName.ToString(), ref birthDate, ref weight, ref height);
+			CurrentUser?.SetNewParameters(genderName.ToString(), ref birthDate, ref weight, ref height);
 			Save();
 		}
 

@@ -4,7 +4,6 @@ namespace FitnessApp.BuisnessLogic.Model
 {
 	public class Food
 	{
-		public int Id { get; set; }
 		public string Name { get; set; }
 
 		// Params of product per 1 g
@@ -12,10 +11,6 @@ namespace FitnessApp.BuisnessLogic.Model
 		public float Fats { get; set; }
 		public float Carbohidrates { get; set; }
 		public float Calories { get; set;}
-
-		public ICollection<EatingFood> EatingFoods { get; set; }
-
-		public Food() { }
 
 		public Food(string name) : this(name, 0, 0, 0, 0) { }
 

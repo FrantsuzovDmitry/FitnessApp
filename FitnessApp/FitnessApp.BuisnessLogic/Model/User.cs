@@ -6,9 +6,7 @@ namespace FitnessApp.BuisnessLogic.Model
 {
 	public class User
 	{
-		public int Id { get; set; }
 		public string Name { get; set; }
-		public int? GenderId { get; set; }
 		public Gender Gender { get; set; }
 		public DateTime BirthDate { get; set; } = DateTime.Now;
 		public double Weight { get; set; }
@@ -18,11 +16,6 @@ namespace FitnessApp.BuisnessLogic.Model
 		public int Height { get; set; }
 		// Calculating field
 		public int Age { get { return (int)(DateTime.Now - BirthDate).TotalDays / 365; }}
-
-		public ICollection<Eating> Eatings { get; set; }
-		public ICollection<Exercise> Exercises { get; set; }
-
-		public User() { }
 
 		public User(string name)
 		{

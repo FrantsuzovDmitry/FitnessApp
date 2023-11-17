@@ -9,15 +9,10 @@ namespace FitnessApp.BuisnessLogic.Model
 {
 	public class Exercise
 	{
-		public int Id { get; set; }
-		public int UserId { get; set; }
 		public User User {get; set; }
-		public int ActivityId { get; set; }
 		public Activity Activity { get; set; }
 		public DateTime StartTime { get; set; }
 		public DateTime EndTime { get; set; }
-
-		public Exercise() { }
 
 		[JsonConstructor]
 		public Exercise(User user, Activity activity, DateTime startTime, DateTime endTime)

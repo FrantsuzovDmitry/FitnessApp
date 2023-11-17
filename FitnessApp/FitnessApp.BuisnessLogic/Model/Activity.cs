@@ -12,14 +12,9 @@ namespace FitnessApp.BuisnessLogic.Model
 	/// </summary>
 	public class Activity
 	{
-		public int Id { get; set; }
 		public string Name { get; set; }
 		public int CaloriesPerMinute { get; set; }
 		
-		public virtual ICollection<Exercise> Exercises { get; set; }
-
-		public Activity() { }
-
 		[JsonConstructor]
 		public Activity(string name, int caloriesPerMinute)
 		{
@@ -35,7 +30,7 @@ namespace FitnessApp.BuisnessLogic.Model
 			return Name;
 		}
 
-		public bool Equals(object obj)
+		public override bool Equals(object obj)
 		{
 			if (obj == null || GetType() != obj.GetType())
 			{

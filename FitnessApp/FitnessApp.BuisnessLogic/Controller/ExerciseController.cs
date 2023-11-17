@@ -19,28 +19,41 @@ namespace FitnessApp.BuisnessLogic.Controller
 			Exercises = GetExercices();
 		}
 
-		public void AddExercise(Activity activity, DateTime startTime, DateTime endTime)
+		public void AddActivity(string activityName, int caloriesPerMinute, DateTime startTime, DateTime endTime)
 		{
-			var act = Activities.SingleOrDefault(a => a.Name == activity.Name);
+			var activity = CreateActivity(activityName, caloriesPerMinute);
+			AddActivityAndSave(startTime, endTime, activity);
+		}
+
+		public void AddActivity(string activityName, int caloriesPerMinute, int durationInMinutes, DateTime startTime)
+		{
+			var activity = CreateActivity(activityName, caloriesPerMinute);
+			AddActivityAndSave(startTime, startTime.AddMinutes(durationInMinutes), activity);
+		}
+
+		public void AddActivity(Activity activity, DateTime startTime, DateTime endTime)
+		{
+			AddActivityAndSave(startTime, endTime, activity);
+		}
+
+		private void AddActivityAndSave(DateTime startTime, DateTime endTime, Activity activity)
+		{
+			var act = Activities.SingleOrDefault(a => a == activity);
 			if (act == null)
 			{
 				Activities.Add(activity);
+				act = activity;
+			}
 
-				var exercise = new Exercise(user, activity, startTime, endTime);
-				Exercises.Add(exercise);
-			}
-			else
-			{
-				var exercise = new Exercise(user, act, startTime, endTime);
-				Exercises.Add(exercise);
-			}
+			var exercise = new Exercise(user, act, startTime, endTime);
+			Exercises.Add(exercise);
 
 			Save();
 		}
 
-		public void AddExercise(Activity activity, int duration)
+		private static Activity CreateActivity(string name, int caloriesPerMinute)
 		{
-			// TODO
+			return new Activity(name, caloriesPerMinute);
 		}
 
 		private List<Exercise> GetExercices()

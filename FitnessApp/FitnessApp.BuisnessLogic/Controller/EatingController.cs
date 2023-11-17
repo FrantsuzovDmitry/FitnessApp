@@ -1,7 +1,4 @@
 ﻿using FitnessApp.BuisnessLogic.Model;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 
 namespace FitnessApp.BuisnessLogic.Controller
 {
@@ -19,7 +16,19 @@ namespace FitnessApp.BuisnessLogic.Controller
 			Eating = GetEating();
 		}
 
-		public void AddFoodToEating(Food food, int weightGramm)
+		public void AddFoodToEating(string foodName, float proteins, float fats, float carbohydrates,
+									float calories, int weightInGramm)
+		{
+			var food = CreateFood(foodName, proteins, fats, carbohydrates, calories);
+			AddFoodAndSave(food, weightInGramm);
+		}
+
+		public void AddFoodToEating(Food food, int weightInGramm)
+		{
+			AddFoodAndSave(food, weightInGramm);
+		}
+
+		private void AddFoodAndSave(Food food, int weightGramm)
 		{
 			var existingFood = Foods.SingleOrDefault(f => f.Name == food.Name);
 			if (existingFood != null)
@@ -34,9 +43,14 @@ namespace FitnessApp.BuisnessLogic.Controller
 			Save();
 		}
 
+		private static Food CreateFood(string foodName, float proteins, float fats, float carbohydrates, float calories)
+		{
+			return new Food(foodName, proteins, fats, carbohydrates, calories);
+		}
+
 		public Food? GetFoodByName(string foodName)
 		{
-			Food f = Foods.FirstOrDefault(f => f.Name == foodName);
+			Food? f = Foods.FirstOrDefault(f => f.Name == foodName);
 			if (f != null)
 			{
 				var foodClone = new Food(f.Name, f.Proteins * 100, f.Fats * 100, 
@@ -65,7 +79,6 @@ namespace FitnessApp.BuisnessLogic.Controller
 		{
 			base.Save(Foods);
 			base.Save(new List<Eating> { Eating });
-			//base.Save(Eating.Foods);
 		}
 	}
 }
