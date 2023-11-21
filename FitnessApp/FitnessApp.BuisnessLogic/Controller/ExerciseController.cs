@@ -15,8 +15,8 @@ namespace FitnessApp.BuisnessLogic.Controller
 				throw new ArgumentNullException("User cannot be null", nameof(user));
 
 			this.user = user;
-			Activities = GetActivities();
-			Exercises = GetExercices();
+			Activities = LoadActivities();
+			Exercises = LoadExercices();
 		}
 
 		public void AddActivity(string activityName, int caloriesPerMinute, DateTime startTime, DateTime endTime)
@@ -56,12 +56,12 @@ namespace FitnessApp.BuisnessLogic.Controller
 			return new Activity(name, caloriesPerMinute);
 		}
 
-		private List<Exercise> GetExercices()
+		private List<Exercise> LoadExercices()
 		{
 			return base.Load<Exercise>() ?? new List<Exercise>();
 		}
 
-		private List<Activity> GetActivities()
+		private List<Activity> LoadActivities()
 		{
 			return base.Load<Activity>() ?? new List<Activity>();
 		}

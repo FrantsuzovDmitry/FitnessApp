@@ -6,14 +6,22 @@ namespace FitnessApp.BuisnessLogic.Controller
 	{
 		private readonly User user;
 		public List<Food> Foods;
-		public Eating Eating;
+		public List<Eating> Eatings;
+		public Eating CurrentEating;
+
 
 		public EatingController(User user)
 		{
 			this.user = user ?? throw new ArgumentNullException("User cannot be null", nameof(user));
 
-			Foods = GetAllFoods();
-			Eating = GetEating();
+			Foods = LoadFoods();
+			Eatings = LoadEating();
+			CurrentEating = Eatings.FirstOrDefault(e => e.User.Equals(user));
+			if (CurrentEating == null)
+			{
+				CurrentEating = new Eating(user);
+				Eatings.Add(CurrentEating);
+			}
 		}
 
 		public void AddFoodToEating(string foodName, float proteins, float fats, float carbohydrates,
@@ -33,12 +41,12 @@ namespace FitnessApp.BuisnessLogic.Controller
 			var existingFood = Foods.SingleOrDefault(f => f.Name == food.Name);
 			if (existingFood != null)
 			{
-				Eating.AddFood(existingFood, weightGramm);
+				CurrentEating.AddFood(existingFood, weightGramm);
 			}
 			else
 			{
 				Foods.Add(food);
-				Eating.AddFood(food, weightGramm);
+				CurrentEating.AddFood(food, weightGramm);
 			}
 			Save();
 		}
@@ -60,17 +68,18 @@ namespace FitnessApp.BuisnessLogic.Controller
 			return f;
 		}
 
+		// TODO: make this method??
 		public List<Food> GetEatingsFoods()
 		{
 			return null;
 		}
 
-		private Eating GetEating()
-		{
-			return base.Load<Eating>().FirstOrDefault() ?? new Eating(user);
+		private List<Eating> LoadEating()
+			{
+			return base.Load<Eating>() ?? new List<Eating>();
 		}
 
-		private List<Food> GetAllFoods()
+		private List<Food> LoadFoods()
 		{
 			return base.Load<Food>() ?? new List<Food>();
 		}
@@ -78,7 +87,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 		private void Save()
 		{
 			base.Save(Foods);
-			base.Save(new List<Eating> { Eating });
+			base.Save(Eatings);
 		}
 	}
 }

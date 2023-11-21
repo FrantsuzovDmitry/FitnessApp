@@ -19,7 +19,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 			}
 			catch (Exception ex)
 			{
-				throw new Exception("Error while serialization" + ex.Message);
+				throw new Exception("Error while serialization: " + ex.Message);
 			}
 		}
 

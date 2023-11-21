@@ -31,7 +31,7 @@ namespace FitnessApp.BuisnessLogic.Controller.Tests
 
 			// Assert
 			Assert.AreEqual(food, eatingController.GetFoodByName(fname));
-			Assert.AreEqual(weightOfPortion, eatingController.Eating.Foods.Last().Weight);
+			Assert.AreEqual(weightOfPortion, eatingController.CurrentEating.Foods.Last().Weight);
 		}
 	}
 }

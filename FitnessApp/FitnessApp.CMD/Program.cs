@@ -61,7 +61,7 @@ namespace FitnessApp.CMD
 					case '1':
 						Console.WriteLine();
 						Console.WriteLine("===== YOUR EATINGS =====");
-						foreach (var item in eatingController.Eating.Foods)
+						foreach (var item in eatingController.CurrentEating.Foods)
 						{
 							Console.WriteLine(item);
 						}
@@ -72,7 +72,7 @@ namespace FitnessApp.CMD
 						Console.WriteLine();
 						AddEatingTpStorage(eatingController);
 
-						foreach (var item in eatingController.Eating.Foods)
+						foreach (var item in eatingController.CurrentEating.Foods)
 						{
 							Console.WriteLine($"{item.Food.Name} - {item.Weight}g");
 						}

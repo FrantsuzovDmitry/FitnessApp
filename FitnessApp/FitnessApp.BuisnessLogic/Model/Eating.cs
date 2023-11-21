@@ -43,10 +43,9 @@ namespace FitnessApp.BuisnessLogic.Model
 		}
     }
 
-	// Relation Eating - Food (Portion)
+	// Relation Eating - Food (Portion) (kinda Dictionary)
 	public class EatingFood
 	{
-		public Eating Eating { get; set; } = null!;
 		public Food Food { get; set; } = null!;
 		public int Weight { get; set; }
 

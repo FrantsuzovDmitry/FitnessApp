@@ -13,7 +13,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 			// Getting all users data
 			if (username.IsNullOrWhiteSpace())
 				throw new ArgumentNullException("User name cannot be empty!", nameof(username));
-			Users = GetAllUsers();
+			Users = LoadUsers();
 
 			CurrentUser = Users.SingleOrDefault(u => u.Name == username);
 
@@ -43,7 +43,7 @@ namespace FitnessApp.BuisnessLogic.Controller
 		/// <summary>
 		/// Load data about users from file
 		/// </summary>
-		private List<User> GetAllUsers()
+		private List<User> LoadUsers()
 		{
 			return base.Load<User>() ?? new List<User>();
 		}
