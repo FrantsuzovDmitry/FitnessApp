@@ -5,6 +5,8 @@
 
 *.bkp
 *.dtmp
+*.drawio
+*Migrations*
 
 # User-specific files
 *.rsuser
