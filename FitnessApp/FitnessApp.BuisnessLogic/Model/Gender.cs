@@ -1,11 +1,21 @@
-﻿namespace FitnessApp.BuisnessLogic.Model
+﻿using Newtonsoft.Json;
+
+namespace FitnessApp.BuisnessLogic.Model
 {
 	/// <summary>
 	/// Gender (sex) of human
 	/// </summary>
 	public class Gender
 	{
+		[JsonIgnore]
+		public int Id { get; set; }
+
 		public string Name { get; set; }
+
+		[JsonIgnore]
+		public ICollection<User> Users { get; set; }
+
+		public Gender() { }
 
 		public Gender(string name)
 		{

@@ -5,8 +5,9 @@ namespace FitnessApp.BuisnessLogic.Controller
 	public class EatingController : BaseController
 	{
 		private readonly User user;
+		private List<Eating> Eatings;
+
 		public List<Food> Foods;
-		public List<Eating> Eatings;
 		public Eating CurrentEating;
 
 
@@ -68,14 +69,8 @@ namespace FitnessApp.BuisnessLogic.Controller
 			return f;
 		}
 
-		// TODO: make this method??
-		public List<Food> GetEatingsFoods()
-		{
-			return null;
-		}
-
 		private List<Eating> LoadEating()
-			{
+		{
 			return base.Load<Eating>() ?? new List<Eating>();
 		}
 

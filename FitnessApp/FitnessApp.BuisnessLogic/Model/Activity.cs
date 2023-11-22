@@ -12,9 +12,18 @@ namespace FitnessApp.BuisnessLogic.Model
 	/// </summary>
 	public class Activity
 	{
+		[JsonIgnore]
+		public int Id { get; set; }
+
 		public string Name { get; set; }
+
 		public int CaloriesPerMinute { get; set; }
+
+		[JsonIgnore]
+		public ICollection<Exercise> Exercises { get; set; }
 		
+		public Activity() { }
+
 		[JsonConstructor]
 		public Activity(string name, int caloriesPerMinute)
 		{
