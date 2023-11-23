@@ -5,8 +5,8 @@ namespace FitnessApp.BuisnessLogic.Controller
 	public class ExerciseController : BaseController
 	{
 		private readonly User user;
+		private List<Activity> Activities { get; }
 
-		public List<Activity> Activities { get; }
 		public List<Exercise> Exercises { get; }
 
 		public ExerciseController(User user)
@@ -55,6 +55,10 @@ namespace FitnessApp.BuisnessLogic.Controller
 		{
 			return new Activity(name, caloriesPerMinute);
 		}
+
+		public Activity? GetActivity(string name) => Activities.FirstOrDefault(a => a.Name == name);
+
+		public Activity? GetActivity(Activity activity) => Activities.FirstOrDefault(a => a == activity);
 
 		private List<Exercise> LoadExercices()
 		{

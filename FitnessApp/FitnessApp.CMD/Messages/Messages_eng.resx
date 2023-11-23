@@ -147,6 +147,9 @@
   <data name="FoodTranslate" xml:space="preserve">
     <value>Enter an eating</value>
   </data>
+  <data name="IncorrectName" xml:space="preserve">
+    <value>Incorrect name!</value>
+  </data>
   <data name="SeeActivities" xml:space="preserve">
     <value>See your activities</value>
   </data>

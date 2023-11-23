@@ -13,7 +13,7 @@ namespace FitnessApp.CMD
 			Console.WriteLine(Messages.Messages_eng.StartingMessage);
 
 			string name = GetData<string>(prompt: Messages.Messages_eng.EnterName,
-											errorMessage: "Incorrect name!",
+											errorMessage: Messages.Messages_eng.IncorrectName,
 											validation: input => input.Length >= 2);
 
 			var userController = new UserController(name);

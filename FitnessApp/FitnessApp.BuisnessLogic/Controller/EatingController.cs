@@ -6,8 +6,8 @@ namespace FitnessApp.BuisnessLogic.Controller
 	{
 		private readonly User user;
 		private List<Eating> Eatings;
+		private List<Food> Foods;
 
-		public List<Food> Foods;
 		public Eating CurrentEating;
 
 

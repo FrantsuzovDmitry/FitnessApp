@@ -1,10 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FitnessApp.BuisnessLogic.Controller;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FitnessApp.BuisnessLogic.Model;
 
 namespace FitnessApp.BuisnessLogic.Controller.Tests
@@ -29,7 +23,7 @@ namespace FitnessApp.BuisnessLogic.Controller.Tests
 			exerciseController.AddActivity(activity, startTime, endTime);
 
 			// Assert
-			Assert.AreEqual(activity, exerciseController.Activities.Last());
+			Assert.AreEqual(activity, exerciseController.GetActivity(activity));
 		}
 	}
 }

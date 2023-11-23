@@ -151,6 +151,15 @@ namespace FitnessApp.CMD.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incorrect name!.
+        /// </summary>
+        internal static string IncorrectName {
+            get {
+                return ResourceManager.GetString("IncorrectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to See your activities.
         /// </summary>
         internal static string SeeActivities {
