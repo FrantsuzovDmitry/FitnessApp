@@ -6,4 +6,3 @@ As part of this project, I am programming a fitness app in which there is:
 5. Model-Controlling architecture
 
 Architecture of app is presented in the file "ClassDiagram"
-You can try the program by running the "TryTheProgram" file
